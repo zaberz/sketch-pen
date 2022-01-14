@@ -78,9 +78,8 @@ const sketch = (p: P5) => {
 
 
 onMounted(() => {
-  console.log(painter.value);
+  document.title='Noise Painter'
   new P5(sketch, painter.value)
-
 })
 
 
