@@ -23,17 +23,18 @@ const strokeLength = 35;
 let frame = 0
 let pic: P5.Image
 let sca = 1
-
+let loaded = false
 const sketch = (p: P5) => {
   p.setup = () => {
     p.createCanvas(window.innerWidth, window.innerHeight)
     p.background(255)
-    pic = p.loadImage(getImageUrl())
+    pic = p.loadImage(getImageUrl(), ()=> {
+      loaded = true
+    })
     p.frameRate(10)
   }
   p.draw = () => {
-    if (frame > drawLength) return
-
+    if (frame > drawLength || !loaded) return
     pic.loadPixels();
 
     if (pic.height > p.height || pic.width > p.width) {
