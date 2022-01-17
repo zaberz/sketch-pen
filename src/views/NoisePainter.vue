@@ -1,6 +1,5 @@
 <template>
   <div class="noise-painter-container">
-    <!--    <div>123213</div>-->
     <div ref="painter"></div>
   </div>
 </template>
@@ -16,7 +15,7 @@ function getImageUrl(): string {
 }
 
 const painter = ref()
-const drawLength = 500;
+const drawLength = 1000;
 const noiseScale = 0.005;
 const strokeLength = 35;
 
@@ -31,7 +30,7 @@ const sketch = (p: P5) => {
     pic = p.loadImage(getImageUrl(), ()=> {
       loaded = true
     })
-    p.frameRate(10)
+    p.frameRate(20)
   }
   p.draw = () => {
     if (frame > drawLength || !loaded) return
@@ -42,7 +41,7 @@ const sketch = (p: P5) => {
     }
     p.scale(sca);
     p.translate(p.width / 2 - pic.width * sca / 2, p.height / 2 - pic.height * sca / 2);
-    let count = p.map(frame, 0, drawLength, 2, 80);
+    let count = p.map(frame, 0, drawLength, 2, 160);
     for (let i = 0; i < count; i++) {
       let x = p.int(p.random(pic.width))
       let y = p.int(p.random(pic.height))
@@ -61,7 +60,7 @@ const sketch = (p: P5) => {
       p.translate(x, y)
       let n = p.noise(x * noiseScale, y * noiseScale)
       p.rotate(p.radians(p.map(n, 0, 1, -180, 180)))
-      let sl = p.map(frame, 0 ,drawLength, strokeLength, 5)
+      let sl = p.map(frame, 0 ,drawLength, strokeLength, 2)
       let lengthVariation = p.random(0.75, 1.25);
       p.line(0, 0, sl * lengthVariation, 0)
 
