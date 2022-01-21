@@ -1,7 +1,7 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router'
 
 
-const routes:RouteRecordRaw[] = [
+const routes: RouteRecordRaw[] = [
   {
     name: 'Home',
     path: '/',
@@ -16,11 +16,16 @@ const routes:RouteRecordRaw[] = [
     name: 'Gupiao',
     path: '/gupiao',
     component: () => import('../views/Gupiao.vue')
+  },
+  {
+    name: 'ForstedGlass',
+    path: '/frosted-glass',
+    component: () => import('../views/FrostedGlass.vue')
   }
 ]
 
 const router = createRouter({
-  history:createWebHashHistory(),
+  history: createWebHashHistory(),
   routes
 })
 
