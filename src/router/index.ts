@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
   {
     name: 'NoisePainter',
     path: '/noise-painter',
-    component: () => import('../views/NoisePainter.vue')
+    component: () => import('../views/noisePainter/NoisePainter.vue')
   },
   {
     name: 'Gupiao',
