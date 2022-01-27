@@ -12,16 +12,16 @@ const routes: RouteRecordRaw[] = [
     path: '/noise-painter',
     component: () => import('../views/noisePainter/NoisePainter.vue')
   },
-  {
-    name: 'Gupiao',
-    path: '/gupiao',
-    component: () => import('../views/Gupiao.vue')
-  },
-  {
-    name: 'ForstedGlass',
-    path: '/frosted-glass',
-    component: () => import('../views/FrostedGlass.vue')
-  }
+  // {
+  //   name: 'Gupiao',
+  //   path: '/gupiao',
+  //   component: () => import('../views/Gupiao.vue')
+  // },
+  // {
+  //   name: 'ForstedGlass',
+  //   path: '/frosted-glass',
+  //   component: () => import('../views/FrostedGlass.vue')
+  // }
 ]
 
 const router = createRouter({
