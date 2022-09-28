@@ -42,7 +42,7 @@ const today = (new Date()).toDateString()
 const xbTime = +new Date(today + ' ' + customTime)
 
 remainTime.value = Math.floor(xbTime/1000) - now
-let timer: number | undefined
+let timer
 
 onMounted(() => {
   document.title = '下班！'
@@ -76,21 +76,30 @@ function openFullscreen(elem) {
 
 }
 
+
+const docWithBrowsersExitFunctions = document as Document & {
+  mozCancelFullScreen(): Promise<void>;
+  webkitExitFullscreen(): Promise<void>;
+  msExitFullscreen(): Promise<void>;
+  isFullScreen: Boolean;
+  mozIsFullScreen: Boolean;
+  webkitIsFullScreen: Boolean
+};
 /* Close fullscreen */
 function closeFullscreen() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
-  } else if (document.mozCancelFullScreen) { /* Firefox */
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE/Edge */
-    document.msExitFullscreen();
+  } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) { /* Firefox */
+    docWithBrowsersExitFunctions.mozCancelFullScreen();
+  } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+    docWithBrowsersExitFunctions.webkitExitFullscreen();
+  } else if (docWithBrowsersExitFunctions.msExitFullscreen) { /* IE/Edge */
+    docWithBrowsersExitFunctions.msExitFullscreen();
   }
 }
 
 function isFullScreen() {
-  return document.fullscreenElement || document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen
+  return document.fullscreenElement || docWithBrowsersExitFunctions.isFullScreen || docWithBrowsersExitFunctions.mozIsFullScreen || docWithBrowsersExitFunctions.webkitIsFullScreen
 }
 
 </script>
