@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container" @click="toggleFullScreen" ref="containerRef">
+    <canvas style="position:absolute; width:100vw;height: 100vh" ref="canvasRef"></canvas>
+
     <div class="content">
       <div>离下班还有：</div>
       <div class="time">{{computedTime}}</div>
@@ -8,10 +10,14 @@
 </template>
 
 <script setup lang="ts">
-
 import {computed, onMounted, onUnmounted, ref} from "vue";
 import {useRoute} from 'vue-router'
+import start from './script.js'
+
 const remainTime = ref(0)
+const canvasRef = ref()
+const containerRef = ref()
+
 const computedTime = computed(() => {
   let time = remainTime.value
   let isNegative = false
@@ -43,10 +49,49 @@ onMounted(() => {
   timer = setInterval(() => {
     remainTime.value--
   }, 1000)
+  start(canvasRef.value)
 })
 onUnmounted(() => {
   clearInterval(timer)
 })
+
+const toggleFullScreen = () => {
+  if (isFullScreen()) {
+    closeFullscreen()
+  }else {
+    openFullscreen(containerRef.value)
+  }
+}
+
+function openFullscreen(elem) {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) { /* Firefox */
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE/Edge */
+    document.msExitFullscreen();
+  }
+}
+
+function isFullScreen() {
+  return document.fullscreenElement || document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen
+}
 
 </script>
 
@@ -60,6 +105,7 @@ onUnmounted(() => {
   font-family: Monaco,Menlo;
 }
 .content{
+  color: #fff;
 }
 .time{
   font-size: 18vw;

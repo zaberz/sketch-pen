@@ -1,13 +1,16 @@
 <template>
-  <div>my sketch</div>
+  <div>
+    <div>
+      <router-link to="/noise-painter?url=https://picsum.photos/1920/1080">noise-painter</router-link>
+    </div>
+    <div>
+      <router-link to="/off-duty">下班倒计时</router-link>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-// import {onMounted} from "vue";
-// onMounted(()=> {
-//   console.log(1);
-//   window.location.href = 'weixin://app/wx5aa333606550dfd5/jumpWxa/?userName=gh_3cf62f4f1d52'
-// })
+import {RouterLink} from "vue-router";
 </script>
 
 <style scoped>

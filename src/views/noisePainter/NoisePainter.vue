@@ -1,7 +1,7 @@
 <template>
   <div class="noise-painter-container">
     <div ref="painter" class="canvas-container">
-      <button @click="exportVideo" v-if="showExport" class="export-btn" >下载视频</button>
+<!--      <button @click="exportVideo" v-if="showExport" class="export-btn" >下载视频</button>-->
     </div>
 
   </div>
